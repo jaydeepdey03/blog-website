@@ -1,7 +1,7 @@
 
 # My Blog Website
 
-A brief description of what this project does and who it's for
+Blog App with MERN Stack
 
 
 ## Authors
