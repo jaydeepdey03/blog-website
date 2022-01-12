@@ -14,13 +14,19 @@ connectToMongo()
 app.use(express.json())
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, '/images')
+    destination: function (req, file, cb) {
+      cb(null, 'images')
     },
     filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-        cb(null, file.fieldname + '-' + uniqueSuffix)
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+      cb(null, `${uniqueSuffix}-${file.originalname}`)
     }
+  })
+  
+  const upload = multer({ storage: storage })
+
+app.post('/blog/upload', upload.single('file') ,(req, res)=>{
+    res.status(200).send("Uploaded Successfully")
 })
 
 app.use('/blog/auth', require('./Routes/auth'))
@@ -28,11 +34,6 @@ app.use('/blog/users', require('./Routes/user'))
 app.use('/blog/posts', require('./Routes/posts'))
 app.use('/blog/category', require('./Routes/category'))
 
-const upload = multer({ storage: storage })
-
-app.post('/blog/upload', upload.single('file'), (req, res)=>{
-    res.status(200).send("Uploaded Successfully") 
-})
 
 app.listen(PORT, () => {
     console.log(`App listening at http://localhost:${PORT}`)
