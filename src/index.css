@@ -1,3 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
 @tailwind base;
 @tailwind components;
+
+.btn{
+    @apply bg-fuchsia-200 p-2 px-6 border-slate-900 rounded text-lg;
+}
+
+.sideBar-title{
+    @apply m-3 p-2 border-t-2 border-b-2 w-4/5 text-center text-2xl font-bold;
+}
+
+
 @tailwind utilities;

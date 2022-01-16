@@ -54,7 +54,6 @@ router.post('/register',
 // Login
 
 router.post('/login',
-    body('username').isLength({ min: 4 }),
     body('email').isEmail(),
     body('password').isLength({ min: 3 }),
     async (req, res) => {

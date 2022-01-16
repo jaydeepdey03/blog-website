@@ -1,7 +1,12 @@
 module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        Lora: ['Lora', 'serif'],
+        Baskerville: ['Libre Baskerville', 'serif'],
+      },
+    },
   },
   plugins: [],
 }
