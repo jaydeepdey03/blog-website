@@ -39,11 +39,11 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className='h-16 text-xl bg-white border-b-2'>
+            <nav className='h-16 text-xl bg-white'>
                 <div className='flex justify-end items-center space-x-10 p-4 mx-3'>
                     <Link to="/">Home</Link>
                     <Link to="/">Contact</Link>
-                    <Link to="/">Create</Link>
+                    <Link to="/write">Create</Link>
                     <IoLogoFacebook className='cursor-pointer text-blue-700 text-2xl' />
                     <IoLogoTwitter className='cursor-pointer text-blue-300' />
                     <IoLogoInstagram className='cursor-pointer' />
