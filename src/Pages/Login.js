@@ -22,7 +22,7 @@ const Login = () => {
                             <input type="password" placeholder='user' className='sm:w-96 focus:bg-blue-50 p-4 outline-none mx-4 border-b-2' />
                         </div>
                         <div className='flex justify-between text-gray-500 mx-5 text-sm'>
-                            <Link to="/login">Sign Up here</Link>
+                            <Link to="/registration">Sign Up here</Link>
                             <Link to="/login">Forgot Password?</Link>
                         </div>
                         <div className='flex justify-center items-center'>

@@ -1,8 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { IoLogoFacebook, IoLogoTwitter, IoLogoInstagram } from 'react-icons/io';
 
 const Sidebar = () => {
+
+    const [cat, setCat] = useState([])
+
+    useEffect(() => {
+        const getCat = async () => {
+            const response = await fetch(`http://localhost:5050/blog/category/getCat`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjFkYWYzYjNiZDBjNmU0MTZmYWM0NDM0IiwiaWF0IjoxNjQxNzM5MTg3fQ.TmCLw9NZZaVNUJbFufIS4yMscnt3ydnn5Tb2nI9j89o",
+                }, body: {
+                    "name": "fashion"
+                },
+            });
+            const res = await response.json()
+            setCat(res)
+        }
+    }, [])
+
     return (
         <div className='hidden flex-[3_3_0%] sm:flex items-center flex-col rounded bg-gray-100 h-2/3'>
             <div className='flex flex-col items-center'>
@@ -18,9 +37,10 @@ const Sidebar = () => {
                 <span className='block m-3 p-2 border-t-2 border-b-2 w-4/5 text-center text-2xl font-bold'>Categories</span>
                 <div className=''>
                     <ul className='p-5 mt-2 inline-block w-1/2'>
-                        <li><Link to="/">Life</Link></li>
-                        <li><Link to="/">Music</Link></li>
-                        <li><Link to="/">Style</Link></li>
+                        {cat.map((e) => {
+                            <li key={e._id}><Link to="/">{e.name}</Link></li>
+                        })}
+
                     </ul>
                     <ul className='p-5 inline-block w-1/2'>
                         <li>Sport</li>

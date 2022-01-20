@@ -55,36 +55,23 @@ router.put('/updatePost/:id', fetchUser, async (req, res) => {
 // Delete Post : Login Required
 
 router.delete('/delete/:id', fetchUser, async (req, res) => {
-    let post = await Post.findById(req.params.id)
-    if (post.username === req.body.username) {
-        try {
-            await post.delete()
-            res.status(200).send("Deleted")
-        } catch (error) {
-            res.status(500).json(error)
-        }
-    }
-    else {
-        res.status(401).send("Access Denied")
+    try {
+        await post.delete()
+        res.status(200).send("Deleted")
+    } catch (error) {
+        res.status(500).json(error)
     }
 })
 
 // Fetch Post by Id: Login required
 
 router.get('/fetchPost/:id', fetchUser, async (req, res) => {
-    let post = await Post.findById(req.params.id)
-    if (post.username === req.body.username) {
-        try {
-            const fetchedPost = await Post.findById(req.params.id)
-            res.status(200).json(fetchedPost)
-        } catch (error) {
-            res.status(500).json(error)
-        }
+    try {
+        const fetchedPost = await Post.findById(req.params.id)
+        res.status(200).json(fetchedPost)
+    } catch (error) {
+        res.status(500).json(error)
     }
-    else {
-        res.status(401).send("Access Denied")
-    }
-
 })
 
 // Fetch Post based on Category or username: Login required

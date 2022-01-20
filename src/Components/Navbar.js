@@ -5,37 +5,19 @@ import { IoLogoFacebook, IoLogoTwitter, IoMdSearch, IoLogoInstagram } from 'reac
 
 const Navbar = () => {
 
-
     function dropDown() {
         const drop = document.querySelector('.drop')
         if (drop.classList.contains('hidden')) {
-            // while(drop.classList.contains('hidden') || drop.classList.contains('flex')){
-            //     if(drop.classList.contains('hidden'))drop.classList.remove('hidden')
-            //     else if(drop.classList.contains('flex'))drop.classList.remove('flex')
-            // }
             drop.classList.remove('hidden')
             drop.classList.add('flex')
         }
         else {
-            // while(drop.classList.contains('hidden') || drop.classList.contains('flex')){
-            //     if(drop.classList.contains('hidden'))drop.classList.remove('hidden')
-            //     else if(drop.classList.contains('flex'))drop.classList.remove('flex')
-            // }
             drop.classList.remove('flex')
             drop.classList.add('hidden')
         }
     }
-        
 
-
-    // document.body.addEventListener('click', ()=>{
-    //     while(drop.classList.contains('hidden') || drop.classList.contains('flex')){
-    //         drop.classList.remove('hidden')
-    //         drop.classList.remove('flex')
-    //     }
-    //     drop.classList.add('hidden')
-    // })
-
+    const user = false
 
     return (
         <>
@@ -51,15 +33,15 @@ const Navbar = () => {
                     <img
                         onMouseDown={dropDown}
                         className='cursor-pointer w-10 h-10 rounded-full'
-                        src="https://qph.fs.quoracdn.net/main-thumb-244354304-200-gjtadjqnnyvfgfwsbmoclbftimyihbkm.jpeg"
+                        src={user? "https://qph.fs.quoracdn.net/main-thumb-244354304-200-gjtadjqnnyvfgfwsbmoclbftimyihbkm.jpeg" : `https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png`}
                         alt=""
                     />
 
                     <div className='drop hidden absolute top-14 transition ease'>
                         <div className='bg-white flex flex-col absolute right-0 z-50 border-2 rounded mt-1 font-sans text-sm w-32'>
-                            <Link className='p-2 flex hover:bg-blue-200 rounded justify-center' to='/'>Profile</Link>
-                            <Link className='p-2 flex hover:bg-blue-200 rounded justify-center' to='/'>Login</Link>
-                            <Link className='p-2 flex hover:bg-blue-200 rounded justify-center' to='/'>Sign Up</Link>
+                            {user ? <Link className='p-2 flex hover:bg-blue-200 rounded justify-center' to='/'>Profile</Link> : <span className='hidden'></span>}
+                            {user ? <Link className='p-2 flex hover:bg-blue-200 rounded justify-center' to='/'>Logout</Link> : <Link className='p-2 flex hover:bg-blue-200 rounded justify-center' to='/login'>Login</Link>}
+                            {user ? <span className='hidden'></span> : <Link className='p-2 flex hover:bg-blue-200 rounded justify-center' to='/registration'>Sign Up</Link>}
                         </div>
                     </div>
                 </div>

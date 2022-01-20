@@ -11,7 +11,7 @@ router.post('/create', async(req, res)=>{
     }
 })
 
-router.get('/getCat', async(req, res)=>{
+router.post('/getCat', async(req, res)=>{
     try {
         const cats = await Category.find()
         res.status(200).json(cats)
