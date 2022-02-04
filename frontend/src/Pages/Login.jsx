@@ -1,10 +1,35 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import {useState,useContext, useEffect} from 'react'
+import {Context} from '../../src/Context/Context'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from "axios";
 
 const Login = () => {
-
-    function submit(e) {
+    const [user, setUser] = useContext(Context);
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [error, setError] = useState();
+    // const [loading, setLoading] = useState(false);
+    const  navigate = useNavigate();
+    // TODO: correct the logic to if(user)
+    useEffect( ()=>{
+        if(!user) navigate("/");
+    },[user,navigate]
+    )
+    async function submit(e) {
         e.preventDefault()
+        // send auth request to server
+        try{
+            const loginUser = {email, password};
+            const loginResponse = await axios.post("http://localhost:5000/users/login", loginUser);
+            setUser({
+                token: loginResponse.data.token,
+                user: loginResponse.data.user
+            });
+            localStorage.setItem("auth-token", loginResponse.data.token);
+            // history.push("/");
+        } catch(err) {
+            err.response.data.msg && setError(err.response.data.msg)
+        }
     }
 
     return (
@@ -15,11 +40,11 @@ const Login = () => {
                         <h1 className='text-3xl p-4 pt-5 text-center font-bold'>Login</h1>
                         <div className='flex flex-col m-3'>
                             <label className='m-3'>Email</label>
-                            <input type="email" placeholder='hello@mail.com' className='sm:w-96 focus:bg-blue-50 p-4 mx-4 outline-none border-b-2' />
+                            <input onChange={e=>setEmail(e.target.value)} type="email" placeholder='hello@mail.com' className='sm:w-96 focus:bg-blue-50 p-4 mx-4 outline-none border-b-2' />
                         </div>
                         <div className='flex flex-col m-3'>
                             <label className='m-3'>Password</label>
-                            <input type="password" placeholder='user' className='sm:w-96 focus:bg-blue-50 p-4 outline-none mx-4 border-b-2' />
+                            <input onChange={e=>setPassword(e.target.value)} type="password" placeholder='user' className='sm:w-96 focus:bg-blue-50 p-4 outline-none mx-4 border-b-2' />
                         </div>
                         <div className='flex justify-between text-gray-500 mx-5 text-sm'>
                             <Link to="/registration">Sign Up here</Link>
