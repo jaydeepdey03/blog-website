@@ -1,10 +1,21 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import {useState,useContext,useEffect} from 'react'
+import { Link,useNavigate } from 'react-router-dom'
+import {Context} from '../../src/Context/Context'
 
 const Registration = () => {
-
+    const [user, setUser] = useContext(Context);
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [username, setUsername] = useState(null);
+    const  navigate = useNavigate();
+    // TODO: correct the logic to if(user)
+    useEffect( ()=>{
+        if(!user) navigate("/");
+    },[user,navigate]
+    )
     function submit(e) {
         e.preventDefault()
+        // send auth request to server
     }
 
     return (
@@ -15,15 +26,15 @@ const Registration = () => {
                         <h1 className='text-3xl p-4 pt-5 text-center font-bold'>Registration</h1>
                         <div className='flex flex-col m-3'>
                             <label className='mx-5 my-3'>Username</label>
-                            <input type="text" placeholder='username' className='sm:w-96 focus:bg-blue-50 px-2 py-3 mx-4 outline-none border-b-2' />
+                            <input onChange={e=>setUsername(e.target.value)} type="text" placeholder='username' className='sm:w-96 focus:bg-blue-50 px-2 py-3 mx-4 outline-none border-b-2' />
                         </div>
                         <div className='flex flex-col m-3'>
                             <label className='mx-5 my-3'>Email</label>
-                            <input type="email" placeholder='hello@mail.com' className='sm:w-96 focus:bg-blue-50 px-2 py-3 mx-4 outline-none border-b-2' />
+                            <input onChange={e=>setEmail(e.target.value)} type="email" placeholder='hello@mail.com' className='sm:w-96 focus:bg-blue-50 px-2 py-3 mx-4 outline-none border-b-2' />
                         </div>
                         <div className='flex flex-col m-3'>
                             <label className='mx-5 my-3'>Password</label>
-                            <input type="password" placeholder='password' className='sm:w-96 focus:bg-blue-50 px-2 py-3 outline-none mx-4 border-b-2' />
+                            <input onChange={e=>setPassword(e.target.value)} type="password" placeholder='password' className='sm:w-96 focus:bg-blue-50 px-2 py-3 outline-none mx-4 border-b-2' />
                         </div>
                         <div className='flex justify-between text-gray-500 mx-5 text-sm'>
                             <Link to="/login">Log In here</Link>

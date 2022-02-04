@@ -1,10 +1,11 @@
-import React from 'react'
+import {useState,useContext, useEffect} from 'react'
+import {Context} from '../../src/Context/Context'
 import { Link } from "react-router-dom";
 import { IoLogoFacebook, IoLogoTwitter, IoMdSearch, IoLogoInstagram } from 'react-icons/io';
 
 
 const Navbar = () => {
-
+    const [{user}, setUser] = useContext(Context);
     function dropDown() {
         const drop = document.querySelector('.drop')
         if (drop.classList.contains('hidden')) {
@@ -17,7 +18,14 @@ const Navbar = () => {
         }
     }
 
-    const user = false
+    const signout = () => {
+        setUser({
+            token: undefined,
+            user: undefined
+        })
+        localStorage.setItem("auth-token","");
+        // Nav to='/registration'
+    };
 
     return (
         <>
@@ -39,9 +47,19 @@ const Navbar = () => {
 
                     <div className='drop hidden absolute top-14 transition ease'>
                         <div className='bg-white flex flex-col absolute right-0 z-50 border-2 rounded mt-1 font-sans text-sm w-32'>
-                            {user ? <Link className='p-2 flex hover:bg-blue-200 rounded justify-center' to='/'>Profile</Link> : <span className='hidden'></span>}
-                            {user ? <Link className='p-2 flex hover:bg-blue-200 rounded justify-center' to='/'>Logout</Link> : <Link className='p-2 flex hover:bg-blue-200 rounded justify-center' to='/login'>Login</Link>}
-                            {user ? <span className='hidden'></span> : <Link className='p-2 flex hover:bg-blue-200 rounded justify-center' to='/registration'>Sign Up</Link>}
+                            {
+                                user 
+                                ?
+                                <>
+                                    <Link className='p-2 flex hover:bg-blue-200 rounded justify-center' to='/'>Profile</Link>
+                                    <div onClick={signout} className='p-2 flex hover:bg-blue-200 rounded justify-center'>Sign Out</div>
+                                </>
+                                :
+                                <>
+                                    <Link className='p-2 flex hover:bg-blue-200 rounded justify-center' to='/login'>Log In</Link>
+                                    <Link className='p-2 flex hover:bg-blue-200 rounded justify-center' to='/registration'>Sign Up</Link>
+                                </>
+                            }
                         </div>
                     </div>
                 </div>
